@@ -31,3 +31,9 @@ export interface TMDBMedia {
     first_air_date?: string;
     vote_average: number;
 }
+
+export interface MediaCardProps {
+    media: TMDBMedia;
+    isFlipped: boolean;
+    onFlip: () => void;
+}

@@ -1,24 +1,31 @@
 @import "tailwindcss";
 
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
+    --background: #f4f0e6;
+    --foreground: #2a2521;
     -webkit-font-smoothing: antialiased;
+    font-family:
+        Inter,
+        "Source Code Pro" system-ui,
+        Avenir,
+        Helvetica,
+        Arial,
+        sans-serif;
 }
 
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
 }
-
-@media (prefers-color-scheme: dark) {
+@theme {
+    --font-tiny: 0.05rem;
+}
+/* @media (prefers-color-scheme: dark) {
     :root {
         --background: #0a0a0a;
         --foreground: #ededed;
     }
-}
+} */
 html,
 body {
     overflow-x: hidden;
@@ -27,7 +34,11 @@ body {
 body {
     background: var(--background);
     color: var(--foreground);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Source Code Pro", monospace;
     /* width: 100%;
     min-height: 100vh; */
+}
+
+h1 {
+    font-family: "Inter";
 }

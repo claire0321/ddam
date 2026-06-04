@@ -1,9 +1,9 @@
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
 
-export async function getPopularMedia() {
+export async function getPopularMedia(page: number = 1) {
     const response = await fetch(
-        `${BASE_URL}/trending/all/day?api_key=${API_KEY}`,
+        `${BASE_URL}/trending/all/week?api_key=${API_KEY}&page=${page}`,
     );
 
     if (!response.ok) {
