@@ -1,3 +1,5 @@
+import { MediaType } from "../types";
+
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
 
@@ -26,9 +28,9 @@ export async function searchMedia(query: string) {
     return data.results;
 }
 
-export async function getMediaDetails(type: "movie" | "tv", id: number) {
+export async function getMediaDetails(type: MediaType, id: number) {
     const response = await fetch(
-        `${BASE_URL}/${type}/${id}?api_key=${API_KEY}&language=ko-KR`,
+        `${BASE_URL}/${type}/${id}?api_key=${API_KEY}`,
     );
     return await response.json();
 }

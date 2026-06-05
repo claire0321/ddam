@@ -20,6 +20,8 @@ export interface MediaItem {
     addedAt: string;
 }
 
+export type MediaType = "movie" | "tv";
+
 export interface TMDBMedia {
     id: number;
     title?: string;
@@ -30,10 +32,9 @@ export interface TMDBMedia {
     release_date?: string;
     first_air_date?: string;
     vote_average: number;
+    media_type: MediaType;
 }
 
-export interface MediaCardProps {
+export interface TMDBMediaProps {
     media: TMDBMedia;
-    isFlipped: boolean;
-    onFlip: () => void;
 }

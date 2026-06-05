@@ -13,13 +13,6 @@
         sans-serif;
 }
 
-@theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-}
-@theme {
-    --font-tiny: 0.05rem;
-}
 /* @media (prefers-color-scheme: dark) {
     :root {
         --background: #0a0a0a;

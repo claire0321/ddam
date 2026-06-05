@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { AuthProvider } from "@/src/components/Login/AuthProvider";
+
+import { AuthProvider } from "@/src/components/login/AuthProvider";
+import Header from "@/src/components/header/Header";
 
 export const metadata: Metadata = {
     title: "DDam",
@@ -15,8 +17,9 @@ export default function RootLayout({
 }>) {
     return (
         <html>
-            <body>
+            <body className="py-16 px-8">
                 <AuthProvider>
+                    <Header />
                     <main>{children}</main>
                 </AuthProvider>
             </body>
