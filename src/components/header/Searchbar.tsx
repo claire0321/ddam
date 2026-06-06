@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 
@@ -9,7 +9,9 @@ type Props = {
 
 export default function Searchbar({ autoFocus }: Props) {
     const router = useRouter();
+    const pathname = usePathname();
     const searchParams = useSearchParams();
+
     const [value, setValue] = useState(searchParams.get("search") ?? "");
 
     useEffect(() => {
@@ -23,7 +25,10 @@ export default function Searchbar({ autoFocus }: Props) {
         if (val) params.set("search", val);
         else params.delete("search");
 
-        router.push(`/?${params.toString()}`);
+        const allowedPaths = ["/", "/myPage"];
+        const targetPath = allowedPaths.includes(pathname) ? pathname : "/";
+
+        router.push(`${targetPath}/?${params.toString()}`);
     };
 
     return (

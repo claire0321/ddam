@@ -37,25 +37,26 @@ export default function MediaDetailPage() {
     if (!media) return <div>{type} not Found.</div>;
 
     return (
-        <div className="min-h-screen flex flex-col px-60">
-            <div className="w-full max-w-240 flex justify-start">
-                <BackBtn />
-            </div>
-            <div className="flex flex-col items-center w-full h-auto">
-                <div
-                    className="w-full flex items-stretch"
-                    style={{
-                        filter: "drop-shadow(0px 16px 32px rgba(42, 37, 33, 0.2))",
-                    }}
-                >
-                    <MediaPoster media={media} />
-                    <MediaInfo media={media} />
-                </div>
+        <div>
+            <BackBtn />
+            <div className="min-h-screen flex flex-col px-60">
+                <div className="w-full max-w-240 flex justify-start"></div>
+                <div className="flex flex-col items-center w-full h-auto">
+                    <div
+                        className="w-full flex items-stretch"
+                        style={{
+                            filter: "drop-shadow(0px 16px 32px rgba(42, 37, 33, 0.2))",
+                        }}
+                    >
+                        <MediaPoster media={media} />
+                        <MediaInfo media={media} />
+                    </div>
 
-                <div className="w-full flex justify-end mt-4">
-                    <button className="bg-[#dccfb8] text-[#2a2521] px-5 py-2 rounded shadow-sm text-xs font-bold hover:bg-[#b79c7a] hover:text-[#f4f0e6] transition-colors">
-                        Comment
-                    </button>
+                    <div className="w-full flex justify-end mt-4">
+                        <button className="bg-[#dccfb8] text-[#2a2521] px-5 py-2 rounded shadow-sm text-xs font-bold hover:bg-[#b79c7a] hover:text-[#f4f0e6] transition-colors">
+                            Comment
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

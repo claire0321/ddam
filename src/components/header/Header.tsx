@@ -5,11 +5,6 @@ import Searchbar from "./Searchbar";
 import MyPageBtn from "../button/MyPageBtn";
 import LoginBtn from "../button/LoginBtn";
 
-type Props = {
-    value: string;
-    onChange: (value: string) => void;
-};
-
 // export default function Header({ value, onChange }: Props) {
 export default function Header() {
     return (

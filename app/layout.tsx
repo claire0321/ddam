@@ -9,6 +9,9 @@ export const metadata: Metadata = {
     title: "DDam",
     description:
         "A personal tracker for movies and TV shows you’ve watched, plan to watch, or are not interested in",
+    icons: {
+        icon: "/favicon.ico",
+    },
 };
 
 export default function RootLayout({
@@ -18,7 +21,7 @@ export default function RootLayout({
 }>) {
     return (
         <html>
-            <body className="py-16 px-8">
+            <body className="py-7 px-7">
                 <MediaProvider>
                     <Header />
                     <main className="p-5">{children}</main>
