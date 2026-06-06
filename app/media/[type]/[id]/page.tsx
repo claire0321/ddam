@@ -10,6 +10,8 @@ import { getMediaDetails } from "@/src/lib/tmdb";
 import MediaPoster from "@/src/components/mediaDetail/MediaPoster";
 import MediaInfo from "@/src/components/mediaDetail/MediaInfo";
 
+import BackBtn from "@/src/components/button/BackBtn";
+
 export default function MediaDetailPage() {
     const { type, id } = useParams() as { type: MediaType; id: string };
 
@@ -35,7 +37,10 @@ export default function MediaDetailPage() {
     if (!media) return <div>{type} not Found.</div>;
 
     return (
-        <div className="min-h-screen flex flex-col items-center px-60 py-5">
+        <div className="min-h-screen flex flex-col px-60">
+            <div className="w-full max-w-240 flex justify-start">
+                <BackBtn />
+            </div>
             <div className="flex flex-col items-center w-full h-auto">
                 <div
                     className="w-full flex items-stretch"
