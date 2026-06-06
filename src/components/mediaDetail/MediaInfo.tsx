@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 
 import TicketInfoMask from "@/public/ticketMask/Ticket-Info.png";
-import { TMDBMediaProps, MediaType, WatchStatus } from "@/src/types";
+import { TMDBMediaProps, MediaType } from "@/src/types";
 import { getMediaCredits } from "@/src/lib/tmdb";
 
 import { useMediaRecord } from "@/src/hooks/useMediaRecord";

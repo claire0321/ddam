@@ -1,6 +1,7 @@
 import { TMDBMediaProps } from "@/src/types";
 
 import clsx from "clsx";
+import StatusBtn from "../button/StatusBtn";
 
 export default function CardFront({ media }: TMDBMediaProps) {
     const posterUrl = `https://image.tmdb.org/t/p/w500${media.poster_path}`;
@@ -16,6 +17,7 @@ export default function CardFront({ media }: TMDBMediaProps) {
             )}
             style={{ WebkitBackfaceVisibility: "hidden" }}
         >
+            <StatusBtn mediaId={media.id} className="top-3 right-3" />
             <img
                 src={posterUrl}
                 alt={title}
