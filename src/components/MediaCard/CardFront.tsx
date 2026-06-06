@@ -1,12 +1,8 @@
-import { MediaCardProps } from "@/src/types";
+import { TMDBMediaProps } from "@/src/types";
 
 import clsx from "clsx";
 
-export default function CardFront({
-    media,
-    isFlipped,
-    onFlip,
-}: MediaCardProps) {
+export default function CardFront({ media }: TMDBMediaProps) {
     const posterUrl = `https://image.tmdb.org/t/p/w500${media.poster_path}`;
     const title = media.title || media.name || "Unknown Title";
     const date = media.release_date ?? media.first_air_date;

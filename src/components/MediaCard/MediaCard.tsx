@@ -1,11 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import clsx from "clsx";
-import { MediaCardProps } from "@/src/types";
-import TicketMask from "@/public/Ticket.png";
+
+import { TMDBMedia } from "@/src/types";
+import TicketMask from "@/public/ticketMask/Ticket.png";
+
+import { useMaskStyle } from "@/src/hooks/useMaskStyle";
+
 import CardFront from "./CardFront";
 import CardBack from "./CardBack";
+
+interface MediaCardProps {
+    media: TMDBMedia;
+    isFlipped: boolean;
+    onFlip: () => void;
+}
 
 const cardBase = clsx(
     "relative w-full aspect-2/3",
@@ -14,24 +24,13 @@ const cardBase = clsx(
     "[perspective:23rem]",
 );
 
-const maskStyle = {
-    // Get Ticket.png file, and set it as masking map.
-    maskImage: `url(${TicketMask.src})`,
-    WebkitMaskImage: `url(${TicketMask.src})`,
-
-    // Set the mask image to stretch and populate at the right rate for card size.
-    maskSize: "100% 100%",
-    WebkitMaskSize: "100% 100%",
-
-    maskRepeat: "no-repeat",
-    WebkitMaskRepeat: "no-repeat",
-};
-
 export default function MediaCard({
     media,
     isFlipped,
     onFlip,
 }: MediaCardProps) {
+    const maskStyle = useMaskStyle(TicketMask.src);
+
     return (
         <div
             className={clsx(
@@ -55,16 +54,8 @@ export default function MediaCard({
                             : "rotateY(0deg)",
                     }}
                 >
-                    <CardFront
-                        media={media}
-                        isFlipped={isFlipped}
-                        onFlip={onFlip}
-                    />
-                    <CardBack
-                        media={media}
-                        isFlipped={isFlipped}
-                        onFlip={onFlip}
-                    />
+                    <CardFront media={media} />
+                    <CardBack media={media} />
                 </div>
             </div>
         </div>

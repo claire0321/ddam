@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { AuthProvider } from "@/src/components/login/AuthProvider";
+import { MediaProvider } from "@/src/store/MediaContext";
+// import { AuthProvider } from "@/src/components/login/AuthProvider";
 import Header from "@/src/components/header/Header";
 
 export const metadata: Metadata = {
@@ -18,10 +19,10 @@ export default function RootLayout({
     return (
         <html>
             <body className="py-16 px-8">
-                <AuthProvider>
+                <MediaProvider>
                     <Header />
-                    <main>{children}</main>
-                </AuthProvider>
+                    <main className="p-5">{children}</main>
+                </MediaProvider>
             </body>
         </html>
     );
