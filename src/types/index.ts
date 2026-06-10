@@ -32,38 +32,41 @@ export type WatchStatus =
     | "Not interested" // ✕
     | "New";
 
-export interface MediaItem {
-    id: number;
-    title: string;
-    poster_path: string | null;
-    overview: string;
-    genres: string[];
-    release_date?: string;
-    first_air_date?: string;
-    vote_average: number;
-    status: WatchStatus;
-    userRating?: number;
-    notes?: string;
-    tags?: string[];
-    addedAt: string;
+export interface MediaInfoProps {
+    media: TMDBMedia;
+    rating: number;
+    review: string;
 }
 
-export interface UserMediaRecord {
-    id: number;
-    status: WatchStatus;
-    rating: number; // 0.0 ~ 5.0
+export interface InfoEditProps {
+    media: TMDBMedia;
+    rating: number;
     review: string;
-    updatedAt: string;
+    onRatingChange: (rating: number) => void;
+    onReviewChange: (rating: string) => void;
+}
+
+// -----------------------------------------------------
+// -----------------------------------------------------
+
+export interface MediaRecord {
+    status: WatchStatus;
+    rating: number;
+    review: string;
+    updatedAt: number;
+}
+
+export interface MediaStorage {
+    [mediaId: number]: MediaRecord;
 }
 
 export interface MediaContextType {
-    records: UserMediaRecord[];
+    storage: MediaStorage;
+    getMediaRecord: (id: number) => MediaRecord;
     updateMediaRecord: (
-        mediaId: number,
+        id: number,
         status: WatchStatus,
-        rating?: number,
-        review?: string,
+        rating: number,
+        review: string,
     ) => void;
-    getMediaRecord: (mediaId: number) => UserMediaRecord;
-    removeMediaRecord: (mediaId: number) => void;
 }

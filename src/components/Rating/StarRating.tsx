@@ -1,5 +1,7 @@
 "use client";
 
+import clsx from "clsx";
+
 import React from "react";
 
 interface RatingProps {
@@ -7,7 +9,8 @@ interface RatingProps {
     step?: number;
     value: number;
     size?: string;
-    onChange: (value: number) => void; // 📌 값 변경 이벤트를 부모로 전달합니다.
+    className?: string;
+    onChange?: (value: number) => void; // 📌 값 변경 이벤트를 부모로 전달합니다.
 }
 
 export default function StarRating({
@@ -15,6 +18,7 @@ export default function StarRating({
     step = 0.5,
     value,
     size,
+    className,
     onChange,
 }: RatingProps) {
     const normalizedValue = Math.floor(value / step) * step;
@@ -29,7 +33,7 @@ export default function StarRating({
     };
 
     return (
-        <div className="flex items-start gap-1">
+        <div className={clsx("flex items-start gap-1", className)}>
             {Array.from({ length: max }).map((_, index) => (
                 <div
                     key={index}

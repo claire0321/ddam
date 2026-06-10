@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { MediaProvider } from "@/src/store/MediaContext";
+import { MediaProvider } from "@/src/context/MediaContext";
 // import { AuthProvider } from "@/src/components/login/AuthProvider";
 import Header from "@/src/components/header/Header";
 

@@ -1,17 +1,24 @@
 import clsx from "clsx";
 
 import React, { useState, useEffect } from "react";
+import TextareaAutosize from "react-textarea-autosize";
 import { useParams } from "next/navigation";
 
 import TicketInfoMask from "@/public/ticketMask/Ticket-Info.png";
-import { MediaInfoProps, MediaType } from "@/src/types";
+import { InfoEditProps, MediaType } from "@/src/types";
 import { getMediaCredits } from "@/src/lib/tmdb";
 
 import { useMaskStyle } from "@/src/hooks/useMaskStyle";
 
 import StarRating from "@/src/components/rating/StarRating";
 
-export default function MediaInfo({ media, rating, review }: MediaInfoProps) {
+export default function InfoEdit({
+    media,
+    rating,
+    review,
+    onRatingChange,
+    onReviewChange,
+}: InfoEditProps) {
     const { type, id } = useParams() as { type: MediaType; id: string };
     const [credits, setCredits] = useState<any>(null);
 
@@ -32,40 +39,25 @@ export default function MediaInfo({ media, rating, review }: MediaInfoProps) {
         fetchCredits();
     }, [type, Number(id)]);
 
-    if (!credits) {
-        return <div>Loading...</div>;
-    } else {
-        console.log(
-            credits.cast.map((person: any) => ({
-                name: person.name,
-                character: person.character,
-            })),
-        );
-        console.log(
-            credits.crew.map((person: any) => ({
-                name: person.name,
-                job: person.job,
-            })),
-        );
-    }
+    if (!credits) return <div>Loading...</div>;
 
-    const cast = credits.cast.length
-        ? `${credits.cast
-              .slice(0, 10)
-              .map((p: any) => p.name)
-              .join(", ")}${credits.cast.length > 10 ? "..." : ""}`
-        : "N/A";
+    const handleRatingInputChange = (val: string) => {
+        if (val === "") {
+            onRatingChange(0);
+            return;
+        }
 
-    const roles = new Set(["Executive Producer", "Director"]);
+        let num = parseFloat(val);
+        if (isNaN(num)) return;
 
-    const keyCrew = (credits.crew ?? []).filter((p: any) => roles.has(p.job));
+        // Force bound constraints
+        if (num > 5) num = 5;
+        if (num < 0) num = 0;
 
-    const director = keyCrew.length
-        ? `${keyCrew
-              .slice(0, 5)
-              .map((p: any) => p.name)
-              .join(", ")}${keyCrew.length > 5 ? "..." : ""}`
-        : "N/A";
+        num = Math.round(num * 10) / 10;
+
+        onRatingChange(num);
+    };
 
     return (
         <div
@@ -83,7 +75,7 @@ export default function MediaInfo({ media, rating, review }: MediaInfoProps) {
             {/* Inner Frame */}
             <div
                 className={clsx(
-                    "h-full",
+                    "min-h-125",
                     "flex",
                     "flex-col",
                     "justify-between",
@@ -129,48 +121,67 @@ export default function MediaInfo({ media, rating, review }: MediaInfoProps) {
                     </div>
                 </div>
 
-                <div className={clsx("py-5 space-y-4 flex-1", borderB)}>
-                    <div>
-                        <span className={clsx(heading)}>Overview</span>
-                        <p className={clsx(description, "leading-relaxed")}>
-                            {media?.overview ||
-                                "No overview context available."}
-                        </p>
-                    </div>
-                    <div className="flex">
-                        <span className={clsx(heading)}>Director</span>
-                        <p className={clsx(description, "ml-4")}>{director}</p>
-                    </div>
-                    <div className="flex">
-                        <span className={clsx(heading)}>Cast</span>
-                        <p className={clsx(description, "line-clamp-2 ml-12")}>
-                            {cast}
-                        </p>
-                    </div>
-                </div>
-
-                <div className="pt-5 space-y-4">
-                    <div className="flex items-center gap-2">
+                <div className={clsx("py-5 flex-1", borderB)}>
+                    <div className="flex items-center gap-2 h-auto">
                         <span className={clsx(heading, "mb-0 self-start")}>
                             Rating
                         </span>
 
                         {/* Star Rating */}
-                        <StarRating value={rating} size={"4rem"} />
-                        <span className={clsx(description, "h-0")}>
-                            [{rating ? rating.toFixed(1) : "0.0"} / 5.0]
-                        </span>
-                    </div>
-                    <div>
-                        <span className={clsx(heading)}>Review</span>
-                        <div
-                            className={clsx(
-                                description,
-                                !review && "min-h-15 italic",
-                            )}
-                        >
-                            {review || "Write your thoughts here..."}
+                        <StarRating
+                            value={rating}
+                            size={"4rem"}
+                            onChange={(rating) => {
+                                onRatingChange(rating);
+                            }}
+                        />
+
+                        <div className="flex items-center gap-2 mt-3">
+                            <input
+                                id="numeric-rating"
+                                type="number"
+                                min="0"
+                                max="5"
+                                step="0.25"
+                                value={rating || ""}
+                                onChange={(e) =>
+                                    handleRatingInputChange(e.target.value)
+                                }
+                                placeholder="0.0"
+                                className={clsx(
+                                    "w-20 ml-5 p-2 rounded-lg border text-sm text-center font-bold font-[#6a5b4d]",
+                                    "focus:outline-none focus:ring-1 focus:ring-[#6a5b4d]",
+                                    "border-[#b79c7a]/50 bg-[#dccfb8]",
+                                    "[appearance:textfield]",
+                                    "[&::-webkit-outer-spin-button]:appearance-none",
+                                    "[&::-webkit-inner-spin-button]:appearance-none",
+                                )}
+                            />
+                            <span className={clsx(description, "h-0")}>
+                                / 5.0 ]
+                            </span>
                         </div>
+                    </div>
+                </div>
+
+                <div className="pt-5 flex-3 h-screen">
+                    <div className="flex flex-col h-full">
+                        <span className={clsx(heading)}>Review</span>
+
+                        <TextareaAutosize
+                            value={review}
+                            onChange={(e) => onReviewChange(e.target.value)}
+                            placeholder="Write your thoughts here..."
+                            className={clsx(
+                                "flex-1",
+                                "w-full p-2",
+                                "text-[#6a5b4d]",
+                                "bg-transparent",
+                                "resize-none",
+                                "focus:outline-none",
+                                "border border-[#b79c7a]",
+                            )}
+                        />
                     </div>
                 </div>
             </div>

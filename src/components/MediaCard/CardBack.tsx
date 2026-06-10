@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 
 import { useMediaRecord } from "@/src/hooks/useMediaRecord";
 
-import StarRating from "@/src/components/Rating/StarRating";
+import StarRating from "@/src/components/rating/StarRating";
 
 const heading = clsx(
     "text-[10px] uppercase tracking-wider",
@@ -111,14 +111,7 @@ export default function CardBack({ media }: TMDBMediaProps) {
                             <span className={clsx(heading, "algin-middle")}>
                                 Rating
                             </span>
-                            <StarRating
-                                value={myRating}
-                                size={"2.5rem"}
-                                onChange={(newRating) => {
-                                    updateRating(newRating);
-                                }}
-                            />
-                            {/* <div className="text-xl">☆☆☆☆☆</div> */}
+                            <StarRating value={myRating} size={"2.5rem"} />
                         </div>
                     </div>
 

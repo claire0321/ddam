@@ -4,15 +4,15 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import clsx from "clsx";
 
-import { TMDBMedia } from "@/src/types";
-import { useMediaContext } from "@/src/store/MediaContext";
+import { TMDBMedia, MediaRecord } from "@/src/types";
+import { useMediaContext } from "@/src/context/MediaContext";
 import MediaCard from "@/src/components/mediaCard/MediaCard";
 import { searchMedia, getPopularMedia } from "@/src/lib/tmdb";
 
 import BackBtn from "@/src/components/button/BackBtn";
 
 export default function MyPage() {
-    const { records } = useMediaContext();
+    const { storage } = useMediaContext();
 
     const searchParams = useSearchParams();
     const searchQuery = searchParams.get("search") ?? "";
@@ -22,11 +22,18 @@ export default function MyPage() {
     const [loading, setLoading] = useState(true);
     const [flippedId, setFlippedId] = useState<number | null>(null);
 
-    const isSearching = searchQuery.trim().length > 0;
+    const recordMap = useMemo((): Map<number, MediaRecord> => {
+        const map = new Map<number, MediaRecord>();
+        if (!storage) return map;
 
-    const recordMap = useMemo(() => {
-        return new Map(records.map((r) => [r.id, r]));
-    }, [records]);
+        Object.entries(storage).forEach(([key, value]) => {
+            const numericId = Number(key);
+            if (!isNaN(numericId)) {
+                map.set(numericId, value as MediaRecord);
+            }
+        });
+        return map;
+    }, [storage]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -59,6 +66,7 @@ export default function MyPage() {
 
     const recordedMedias = medias.filter((media) => {
         const record = recordMap.get(media.id);
+        // Exclude default or unrecorded "New" baseline placeholders safely
         return record && record.status !== "New";
     });
 

@@ -16,6 +16,7 @@
         "next-auth": "^4.24.7",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
+        "react-textarea-autosize": "^8.5.9",
         "styled-components": "^6.4.2",
         "tailwind-styled-components": "^2.2.0",
         "zustand": "^4.5.7"
