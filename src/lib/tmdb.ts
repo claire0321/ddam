@@ -13,19 +13,23 @@ export async function getPopularMedia(page: number = 1) {
     }
 
     const data = await response.json();
-    return data.results;
+    return (data.results || []).filter(
+        (item: any) => item.media_type === "movie" || item.media_type === "tv",
+    );
 }
 
 // Search by Keywords
-export async function searchMedia(query: string) {
+export async function searchMedia(query: string, page: number = 1) {
     const response = await fetch(
-        `${BASE_URL}/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}`,
+        `${BASE_URL}/search/multi?api_key=${API_KEY}&query=${encodeURIComponent(query)}&page=${page}`,
     );
     if (!response.ok) {
         throw new Error("Failed to search medias...");
     }
     const data = await response.json();
-    return data.results;
+    return (data.results || []).filter(
+        (item: any) => item.media_type === "movie" || item.media_type === "tv",
+    );
 }
 
 export async function getMediaDetails(type: MediaType, id: number) {

@@ -1,10 +1,13 @@
 import { TMDBMediaProps } from "@/src/types";
+import NoPoster from "@/public/no-poster.png";
 
 import clsx from "clsx";
 import StatusBtn from "../button/StatusBtn";
 
 export default function CardFront({ media }: TMDBMediaProps) {
-    const posterUrl = `https://image.tmdb.org/t/p/w500${media.poster_path}`;
+    const posterUrl = media.poster_path
+        ? `https://image.tmdb.org/t/p/original${media.poster_path}`
+        : NoPoster.src;
     const title = media.title || media.name || "Unknown Title";
     const date = media.release_date ?? media.first_air_date;
     const year = date?.split("-")[0];

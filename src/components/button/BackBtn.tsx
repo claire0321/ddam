@@ -20,7 +20,6 @@ export default function BackBtn() {
                 "font-mono text-xs font-bold uppercase tracking-widest",
             )}
         >
-            {/* 왼쪽 화살표 아이콘 */}
             <span className="transition-transform duration-200 group-hover:-translate-x-1">
                 ←
             </span>
