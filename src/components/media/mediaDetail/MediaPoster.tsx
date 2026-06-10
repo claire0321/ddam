@@ -3,7 +3,7 @@ import NoPoster from "@/public/no-poster.png";
 import { TMDBMediaProps } from "@/src/types";
 
 import { useMaskStyle } from "@/src/hooks/useMaskStyle";
-import StatusBtn from "../button/StatusBtn";
+import StatusBtn from "@/src/components/button/StatusBtn";
 
 export default function MediaPoster({ media }: TMDBMediaProps) {
     const maskStyle = useMaskStyle(TicketPosterMask.src);

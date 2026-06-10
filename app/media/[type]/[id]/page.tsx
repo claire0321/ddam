@@ -7,9 +7,9 @@ import { useParams } from "next/navigation";
 import { TMDBMedia, MediaType } from "@/src/types";
 import { getMediaDetails } from "@/src/lib/tmdb";
 
-import MediaPoster from "@/src/components/mediaDetail/MediaPoster";
-import MediaInfo from "@/src/components/mediaDetail/MediaInfo";
-import InfoEdit from "@/src/components/mediaDetail/InfoEdit";
+import MediaPoster from "@/src/components/media/mediaDetail/MediaPoster";
+import MediaInfo from "@/src/components/media/mediaDetail/MediaInfo";
+import InfoEdit from "@/src/components/media/mediaDetail/InfoEdit";
 
 import BackBtn from "@/src/components/button/BackBtn";
 import { useMediaRecord } from "@/src/hooks/useMediaRecord";

@@ -2,7 +2,7 @@ import { TMDBMediaProps } from "@/src/types";
 import NoPoster from "@/public/no-poster.png";
 
 import clsx from "clsx";
-import StatusBtn from "../button/StatusBtn";
+import StatusBtn from "@/src/components/button/StatusBtn";
 
 export default function CardFront({ media }: TMDBMediaProps) {
     const posterUrl = media.poster_path
